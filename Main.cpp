@@ -40,17 +40,22 @@ int main()
 		{
 			int result = second_number_split[num2] * first_number_split[num1];
 
-			if (result >= 10)
-			{
-				carry_amount = result / 10;
-			}
-			else if (carry_amount > 0) // If number previous was > 10, add 1 to account for carrying digit
+			std::cout << "Result: " << result << std::endl;
+
+			if (carry_amount > 0) // If number previous was > 10, add 1 to account for carrying digit
 			{
 				std::cout << "Carry amount: " << carry_amount << std::endl;
 				result += carry_amount;
 				carry_amount = 0;
 			}
+			
+			if (result >= 10 && num2 != second_number_split.size()) // Add new carrying digit
+			{
+				std::cout << "Converting: " << result << std::endl;
+				carry_amount = result / 10;
+			}
 
+			std::cout << "New result: " << result << std::endl;
 
 
 			rows_data[num2].push_back(result);
