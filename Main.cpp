@@ -76,7 +76,7 @@ int main()
 
 	// Display Rows
 
-	for (int row = 0; row < rows_amount; row++)
+	for (int row = 0; row < rows_amount; row++) 
 	{
 		// Reverse row to display properly
 		std::reverse(rows_data[row].begin(), rows_data[row].end());
@@ -103,8 +103,22 @@ int main()
 	
 	print_line(rows_amount);
 
-	
 
+	for (int digit = 0; digit < rows_data[rows_amount - 1].size() - 1; digit++)
+	{
+		for (int row = 0; row < rows_amount; row++)
+		{
+			int index = (rows_data[row].size() - 1) - digit;
+
+			if (index < 0)
+			{
+				continue; // Account for out of range vectors;
+			}
+
+			std::cout << rows_data[row][index] << " ";
+		}
+		std::cout << std::endl;
+	}
 
 	return 0;
 }
