@@ -32,23 +32,26 @@ int main()
 	std::unordered_map<int, std::vector<int>> rows_data;
 
 	// Multiplication
-	bool carry_number = false;
 
 	for (int num2 = 0; num2 < second_number_split.size(); num2++) // Row 1 (first number)
 	{
+		int carry_amount = 0;
 		for (int num1 = 0; num1 < first_number_split.size(); num1++) // Row 2 (second number)
 		{
 			int result = second_number_split[num2] * first_number_split[num1];
-			
-			if (carry_number) // If number previous was > 10, add 1 to account for carrying digit
+
+			if (result >= 10)
 			{
-				result++;
-				carry_number = false;
+				carry_amount = result / 10;
 			}
-			else if (result >= 10)
+			else if (carry_amount > 0) // If number previous was > 10, add 1 to account for carrying digit
 			{
-				carry_number = true;
+				std::cout << "Carry amount: " << carry_amount << std::endl;
+				result += carry_amount;
+				carry_amount = 0;
 			}
+
+
 
 			rows_data[num2].push_back(result);
 
@@ -63,7 +66,7 @@ int main()
 			std::cout << rows_data[row][number] << " ";
 
 		}
-		std::endl;
+		std::cout << std::endl; // Separate row
 	}
 
 	return 0;
