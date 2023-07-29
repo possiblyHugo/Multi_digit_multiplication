@@ -1,11 +1,14 @@
 #include <iostream> // std::cout, std:cin
 #include <vector> // std::vector
-//#include <algorithm> // std::reverse
+#include <algorithm> // std::reverse
 #include <unordered_map> // std::unordered_map
+#include <iomanip> // std::setw
 
 
 // Functions
 std::vector<int> get_digits(int number);
+void print_header(std::vector<int>& nums, int rows_amount, bool second_number = false);
+void print_line(int amount);
 
 int main()
 {
@@ -40,22 +43,17 @@ int main()
 		{
 			int result = second_number_split[num2] * first_number_split[num1];
 
-			std::cout << "Result: " << result << std::endl;
 
 			if (carry_amount > 0) // If number previous was > 10, add 1 to account for carrying digit
 			{
-				std::cout << "Carry amount: " << carry_amount << std::endl;
 				result += carry_amount;
 				carry_amount = 0;
 			}
 			
 			if (result >= 10 && num2 != second_number_split.size()) // Add new carrying digit
 			{
-				std::cout << "Converting: " << result << std::endl;
 				carry_amount = result / 10;
 			}
-
-			std::cout << "New result: " << result << std::endl;
 
 			if (result > 10)
 			{
@@ -67,9 +65,32 @@ int main()
 		}
 	}
 
-	// Display
+
+
+
+	// Display Header
+	print_header(first_number_split, rows_amount);
+	print_header(second_number_split, rows_amount, true);
+	
+	print_line(rows_amount);
+
+	// Display Rows
+
 	for (int row = 0; row < rows_amount; row++)
 	{
+		// Reverse row to display properly
+		std::reverse(rows_data[row].begin(), rows_data[row].end());
+		
+		// Add zeros to account for offset
+
+		for (int zero = 0; zero < row && row != 0; zero++)
+		{
+			rows_data[row].push_back(0);
+		}
+
+		// Formatting
+		std::cout << std::setw((rows_amount * 2) - (row * 2)); // Algorithm to display offsets properly
+
 		for (int number = 0; number < rows_data[row].size(); number++)
 		{
 			std::cout << rows_data[row][number] << " ";
@@ -77,6 +98,13 @@ int main()
 		}
 		std::cout << std::endl; // Separate row
 	}
+
+	// Print Result
+	
+	print_line(rows_amount);
+
+	
+
 
 	return 0;
 }
@@ -92,7 +120,31 @@ std::vector<int> get_digits(int number)
 		digit_place /= 10; // Moves one digit to the left
 	}
 
-	//std::reverse(digits.begin(), digits.end()); // digits are in reverse (3, 2, 1), this sets them back to the original splitted int)
-
 	return digits;
+}
+
+
+void print_header(std::vector<int>& nums, int rows_amount, bool second_number)
+{
+	std::cout << std::setw((rows_amount * 2));
+	for (int digit = nums.size() - 1; digit >= 0; digit--)
+	{
+		std::cout << nums[digit] << " ";
+	}
+
+	if (second_number)
+	{
+		std::cout << " x"; // Add Multiplication sign
+	}
+
+	std::cout << std::endl;
+}
+
+void print_line(int amount)
+{
+	for (int i = 0; i < amount * 5; i++)
+	{
+		std::cout << "-";
+	}
+	std::cout << std::endl;
 }
