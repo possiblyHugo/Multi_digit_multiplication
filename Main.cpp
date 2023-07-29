@@ -27,15 +27,12 @@ int main()
 
 	// Multiply first row
 
-	for (int second_number_digit = second_number_split.size(); second_number_digit > 0; second_number_digit--) // Number is taken from left to right, so it must read from right to left
+	for (int num2 = 0; num2 < second_number_split.size(); num2++) // Row 1 (first number)
 	{
-		for (int first_number_digit = first_number_split.size(); first_number_split > 0; first_number_split--)
+		for (int num1 = 0; num1 < first_number_split.size(); num1++) // Row 2 (second number)
 		{
-			// Multiply first digit with each number in the row
-			int result = second_number_digit * first_number_digit;
-			std::cout << second_number_digit << " " << first_number_digit << std::endl;
+			std::cout << second_number_split[num2] << " * " << first_number_split[num1] << " " << first_number_split[num1] * second_number_split[num2] << std::endl;
 		}
-
 	}
 
 	// Display
@@ -56,7 +53,7 @@ std::vector<int> get_digits(int number)
 		digit_place /= 10; // Moves one digit to the left
 	}
 
-	std::reverse(digits.begin(), digits.end()); // digits are in reverse (3, 2, 1), this sets them back to the original splitted int)
+	//std::reverse(digits.begin(), digits.end()); // digits are in reverse (3, 2, 1), this sets them back to the original splitted int)
 
 	return digits;
 }
