@@ -57,6 +57,10 @@ int main()
 
 			std::cout << "New result: " << result << std::endl;
 
+			if (result > 10)
+			{
+				result = result % 10;
+			}
 
 			rows_data[num2].push_back(result);
 
