@@ -104,8 +104,9 @@ int main()
 	print_line(rows_amount);
 
 
-	for (int digit = 0; digit < rows_data[rows_amount - 1].size() - 1; digit++)
+	for (int digit = 0; digit < rows_data[rows_amount - 1].size(); digit++) // Uses last element in map because it's the largest one
 	{
+		int sum = 0;
 		for (int row = 0; row < rows_amount; row++)
 		{
 			int index = (rows_data[row].size() - 1) - digit;
@@ -115,9 +116,12 @@ int main()
 				continue; // Account for out of range vectors;
 			}
 
+			sum += rows_data[row][index];
+
 			std::cout << rows_data[row][index] << " ";
 		}
-		std::cout << std::endl;
+		std::cout << " = " << sum << std::endl;
+		sum = 0;
 	}
 
 	return 0;
