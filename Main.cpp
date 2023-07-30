@@ -34,6 +34,9 @@ int main()
 	int rows_amount = second_number_split.size();
 	std::unordered_map<int, std::vector<int>> rows_data;
 
+	// Result
+	std::vector<int> result;
+
 	// Multiplication
 
 	for (int num2 = 0; num2 < second_number_split.size(); num2++) // Row 1 (first number)
@@ -55,7 +58,7 @@ int main()
 				carry_amount = result / 10;
 			}
 
-			if (result > 10)
+			if (result >= 10)
 			{
 				result = result % 10;
 			}
@@ -99,11 +102,13 @@ int main()
 		std::cout << std::endl; // Separate row
 	}
 
-	// Print Result
-	
+	// Get Result
+
 	print_line(rows_amount);
+	
+	std::cout << std::setw(2); // Align output format
 
-
+	int carry_amount = 0;
 	for (int digit = 0; digit < rows_data[rows_amount - 1].size(); digit++) // Uses last element in map because it's the largest one
 	{
 		int sum = 0;
@@ -118,11 +123,44 @@ int main()
 
 			sum += rows_data[row][index];
 
-			std::cout << rows_data[row][index] << " ";
+			//std::cout << rows_data[row][index] << " ";
+
 		}
-		std::cout << " = " << sum << std::endl;
+
+		// Account for carrying
+		if (carry_amount > 0)
+		{
+			sum += carry_amount;
+			carry_amount = 0;
+		}
+
+
+		if (sum >= 10 && digit != rows_data[rows_amount - 1].size())
+		{
+			carry_amount += (sum / 10);
+		}
+		
+		if (sum >= 10)
+		{
+			sum = sum % 10;
+		}
+
+
+		result.push_back(sum);
+
 		sum = 0;
 	}
+
+
+	
+	// Print Sum
+	std::reverse(result.begin(), result.end());
+
+	for (int digit = 0; digit < result.size(); digit++)
+	{
+		std::cout << result[digit] << " ";
+	}
+
 
 	return 0;
 }
